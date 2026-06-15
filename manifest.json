@@ -1,0 +1,147 @@
+{
+  "name": "cortex-plugin-meeting-transcriber",
+  "version": "1.0.0",
+  "description": "Ingest audio/video files, transcribe via Whisper, generate structured meeting notes",
+  "kind": "esm",
+  "entryPoint": "mod.ts",
+  "runtime": "deno",
+  "author": "CortexPrism",
+  "license": "MIT",
+  "repository": "https://github.com/CortexPrism/cortex-plugin-meeting-transcriber",
+  "homepage": "",
+  "capabilities": [
+    "tools",
+    "shell:run",
+    "fs:read"
+  ],
+  "tools": [
+    {
+      "name": "transcribe_audio",
+      "description": "Transcribe an audio/video file",
+      "params": [
+        {
+          "name": "file_path",
+          "type": "string",
+          "description": "Path to audio or video file",
+          "required": true
+        },
+        {
+          "name": "language",
+          "type": "string",
+          "description": "ISO language code (e.g. en)",
+          "required": false
+        },
+        {
+          "name": "model",
+          "type": "string",
+          "description": "Whisper model to use",
+          "required": false,
+          "defaultValue": "base",
+          "options": ["tiny", "base", "small", "medium", "large"]
+        },
+        {
+          "name": "output_format",
+          "type": "string",
+          "description": "Output format",
+          "required": false,
+          "defaultValue": "text",
+          "options": ["text", "srt", "json"]
+        }
+      ]
+    },
+    {
+      "name": "summarize_meeting",
+      "description": "Generate structured meeting notes from a transcript",
+      "params": [
+        {
+          "name": "transcript",
+          "type": "string",
+          "description": "Full meeting transcript text",
+          "required": true
+        },
+        {
+          "name": "meeting_title",
+          "type": "string",
+          "description": "Title of the meeting",
+          "required": false
+        },
+        {
+          "name": "participants",
+          "type": "string",
+          "description": "Comma-separated participant names",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "extract_action_items",
+      "description": "Extract action items from a transcript",
+      "params": [
+        {
+          "name": "transcript",
+          "type": "string",
+          "description": "Full meeting transcript text",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "meeting_search",
+      "description": "Search across meeting transcripts",
+      "params": [
+        {
+          "name": "query",
+          "type": "string",
+          "description": "Search query",
+          "required": true
+        },
+        {
+          "name": "max_results",
+          "type": "number",
+          "description": "Maximum number of results",
+          "required": false,
+          "defaultValue": 10
+        }
+      ]
+    },
+    {
+      "name": "transcribe_status",
+      "description": "Check if Whisper is installed",
+      "params": []
+    }
+  ],
+  "ui": {
+    "section": "Whisper",
+    "fields": [
+      {
+        "key": "whisperModel",
+        "label": "Whisper Model",
+        "type": "select",
+        "description": "Default Whisper model",
+        "defaultValue": "base",
+        "options": [
+          { "label": "Tiny", "value": "tiny" },
+          { "label": "Base", "value": "base" },
+          { "label": "Small", "value": "small" },
+          { "label": "Medium", "value": "medium" },
+          { "label": "Large", "value": "large" }
+        ]
+      },
+      {
+        "key": "defaultLanguage",
+        "label": "Default Language (ISO)",
+        "type": "text",
+        "description": "Default language code for transcription",
+        "defaultValue": "en"
+      }
+    ]
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "cortex": ">=1.0.0"
+  },
+  "aiDisclosure": {
+    "tools": ["Claude Code (Anthropic)"],
+    "humanReview": true
+  }
+}

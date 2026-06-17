@@ -1,6 +1,6 @@
 {
   "name": "cortex-plugin-meeting-transcriber",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Ingest audio/video files, transcribe via Whisper, generate structured meeting notes",
   "kind": "esm",
   "entryPoint": "mod.ts",

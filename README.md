@@ -17,6 +17,7 @@ cortex plugin install ./manifest.json
 Transcribe an audio/video file.
 
 **Parameters:**
+
 - `file_path` (string, required) — Path to audio or video file
 - `language` (string, optional) — ISO language code (e.g. "en")
 - `model` (string, optional, default "base") — tiny, base, small, medium, large
@@ -27,6 +28,7 @@ Transcribe an audio/video file.
 Generate structured meeting notes from a transcript.
 
 **Parameters:**
+
 - `transcript` (string, required) — Full meeting transcript
 - `meeting_title` (string, optional) — Title of the meeting
 - `participants` (string, optional) — Comma-separated names
@@ -36,6 +38,7 @@ Generate structured meeting notes from a transcript.
 Extract action items from a transcript.
 
 **Parameters:**
+
 - `transcript` (string, required) — Full meeting transcript
 
 ### meeting_search
@@ -43,6 +46,7 @@ Extract action items from a transcript.
 Search across meeting transcripts.
 
 **Parameters:**
+
 - `query` (string, required) — Search query
 - `max_results` (number, optional, default 10) — Maximum results
 

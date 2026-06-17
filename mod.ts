@@ -1,4 +1,4 @@
-import type { Tool, ToolContext, PluginContext, ToolCallResult } from 'cortex/plugins';
+import type { PluginContext, Tool, ToolCallResult, ToolContext } from './types.ts';
 
 let pluginConfig: Record<string, unknown> = {};
 
@@ -16,10 +16,25 @@ const transcribeAudioTool: Tool = {
     name: 'transcribe_audio',
     description: 'Transcribe an audio/video file',
     params: [
-      { name: 'file_path', type: 'string', description: 'Path to audio or video file', required: true },
-      { name: 'language', type: 'string', description: 'ISO language code (e.g. en)', required: false },
+      {
+        name: 'file_path',
+        type: 'string',
+        description: 'Path to audio or video file',
+        required: true,
+      },
+      {
+        name: 'language',
+        type: 'string',
+        description: 'ISO language code (e.g. en)',
+        required: false,
+      },
       { name: 'model', type: 'string', description: 'Whisper model to use', required: false },
-      { name: 'output_format', type: 'string', description: 'Output format (text, srt, json)', required: false },
+      {
+        name: 'output_format',
+        type: 'string',
+        description: 'Output format (text, srt, json)',
+        required: false,
+      },
     ],
     capabilities: ['shell:run', 'fs:read'],
   },
@@ -36,7 +51,8 @@ const transcribeAudioTool: Tool = {
           durationMs: Date.now() - start,
         };
       }
-      const language = (args.language as string) || (pluginConfig.defaultLanguage as string) || 'en';
+      const language = (args.language as string) || (pluginConfig.defaultLanguage as string) ||
+        'en';
       const model = (args.model as string) || 'base';
       const validModels = ['tiny', 'base', 'small', 'medium', 'large'];
       if (!validModels.includes(model)) {
@@ -55,11 +71,19 @@ const transcribeAudioTool: Tool = {
           toolName: 'transcribe_audio',
           success: false,
           output: '',
-          error: `Invalid output_format: ${outputFormat}. Must be one of: ${validFormats.join(', ')}`,
+          error: `Invalid output_format: ${outputFormat}. Must be one of: ${
+            validFormats.join(', ')
+          }`,
           durationMs: Date.now() - start,
         };
       }
-      const result = { file_path: filePath, language, model, output_format: outputFormat, transcript: '' };
+      const result = {
+        file_path: filePath,
+        language,
+        model,
+        output_format: outputFormat,
+        transcript: '',
+      };
       return {
         toolName: 'transcribe_audio',
         success: true,
@@ -83,9 +107,24 @@ const summarizeMeetingTool: Tool = {
     name: 'summarize_meeting',
     description: 'Generate structured meeting notes from a transcript',
     params: [
-      { name: 'transcript', type: 'string', description: 'Full meeting transcript text', required: true },
-      { name: 'meeting_title', type: 'string', description: 'Title of the meeting', required: false },
-      { name: 'participants', type: 'string', description: 'Comma-separated participant names', required: false },
+      {
+        name: 'transcript',
+        type: 'string',
+        description: 'Full meeting transcript text',
+        required: true,
+      },
+      {
+        name: 'meeting_title',
+        type: 'string',
+        description: 'Title of the meeting',
+        required: false,
+      },
+      {
+        name: 'participants',
+        type: 'string',
+        description: 'Comma-separated participant names',
+        required: false,
+      },
     ],
     capabilities: [],
   },
@@ -134,7 +173,12 @@ const extractActionItemsTool: Tool = {
     name: 'extract_action_items',
     description: 'Extract action items from a transcript',
     params: [
-      { name: 'transcript', type: 'string', description: 'Full meeting transcript text', required: true },
+      {
+        name: 'transcript',
+        type: 'string',
+        description: 'Full meeting transcript text',
+        required: true,
+      },
     ],
     capabilities: [],
   },
@@ -163,7 +207,9 @@ const extractActionItemsTool: Tool = {
         toolName: 'extract_action_items',
         success: false,
         output: '',
-        error: `Failed to extract action items: ${error instanceof Error ? error.message : String(error)}`,
+        error: `Failed to extract action items: ${
+          error instanceof Error ? error.message : String(error)
+        }`,
         durationMs: Date.now() - start,
       };
     }
@@ -176,7 +222,12 @@ const meetingSearchTool: Tool = {
     description: 'Search across meeting transcripts',
     params: [
       { name: 'query', type: 'string', description: 'Search query', required: true },
-      { name: 'max_results', type: 'number', description: 'Maximum number of results', required: false },
+      {
+        name: 'max_results',
+        type: 'number',
+        description: 'Maximum number of results',
+        required: false,
+      },
     ],
     capabilities: [],
   },

@@ -1,6 +1,6 @@
 {
   "name": "cortex-plugin-meeting-transcriber",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Ingest audio/video files, transcribe via Whisper, generate structured meeting notes",
   "kind": "esm",
   "entryPoint": "mod.ts",
@@ -8,7 +8,7 @@
   "author": "CortexPrism",
   "license": "MIT",
   "repository": "https://github.com/CortexPrism/cortex-plugin-meeting-transcriber",
-  "homepage": "",
+  "homepage": "https://github.com/CortexPrism/cortex-plugin-meeting-transcriber",
   "capabilities": [
     "tools",
     "shell:run",
@@ -36,16 +36,26 @@
           "type": "string",
           "description": "Whisper model to use",
           "required": false,
-          "defaultValue": "base",
-          "options": ["tiny", "base", "small", "medium", "large"]
+          "default": "base",
+          "enum": [
+            "tiny",
+            "base",
+            "small",
+            "medium",
+            "large"
+          ]
         },
         {
           "name": "output_format",
           "type": "string",
           "description": "Output format",
           "required": false,
-          "defaultValue": "text",
-          "options": ["text", "srt", "json"]
+          "default": "text",
+          "enum": [
+            "text",
+            "srt",
+            "json"
+          ]
         }
       ]
     },
@@ -100,7 +110,7 @@
           "type": "number",
           "description": "Maximum number of results",
           "required": false,
-          "defaultValue": 10
+          "default": 10
         }
       ]
     },
@@ -111,28 +121,47 @@
     }
   ],
   "ui": {
-    "section": "Whisper",
-    "fields": [
+    "settings": [
       {
-        "key": "whisperModel",
-        "label": "Whisper Model",
-        "type": "select",
-        "description": "Default Whisper model",
-        "defaultValue": "base",
-        "options": [
-          { "label": "Tiny", "value": "tiny" },
-          { "label": "Base", "value": "base" },
-          { "label": "Small", "value": "small" },
-          { "label": "Medium", "value": "medium" },
-          { "label": "Large", "value": "large" }
+        "section": "Whisper",
+        "fields": [
+          {
+            "key": "whisperModel",
+            "label": "Whisper Model",
+            "type": "select",
+            "description": "Default Whisper model",
+            "default": "base",
+            "enum": [
+              {
+                "label": "Tiny",
+                "value": "tiny"
+              },
+              {
+                "label": "Base",
+                "value": "base"
+              },
+              {
+                "label": "Small",
+                "value": "small"
+              },
+              {
+                "label": "Medium",
+                "value": "medium"
+              },
+              {
+                "label": "Large",
+                "value": "large"
+              }
+            ]
+          },
+          {
+            "key": "defaultLanguage",
+            "label": "Default Language (ISO)",
+            "type": "text",
+            "description": "Default language code for transcription",
+            "default": "en"
+          }
         ]
-      },
-      {
-        "key": "defaultLanguage",
-        "label": "Default Language (ISO)",
-        "type": "text",
-        "description": "Default language code for transcription",
-        "defaultValue": "en"
       }
     ]
   },
@@ -141,7 +170,9 @@
     "cortex": ">=1.0.0"
   },
   "aiDisclosure": {
-    "tools": ["Claude Code (Anthropic)"],
+    "tools": [
+      "Claude Code (Anthropic)"
+    ],
     "humanReview": true
   }
 }

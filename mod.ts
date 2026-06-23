@@ -1,4 +1,4 @@
-import type { PluginContext, Tool, ToolCallResult, ToolContext } from './types.ts';
+import type { PluginContext, Tool, ToolCallResult } from 'cortex/plugins';
 
 let pluginConfig: Record<string, unknown> = {};
 
@@ -38,7 +38,7 @@ const transcribeAudioTool: Tool = {
     ],
     capabilities: ['shell:run', 'fs:read'],
   },
-  execute: async (args: Record<string, unknown>, _ctx: ToolContext): Promise<ToolCallResult> => {
+  execute: async (args: Record<string, unknown>, _ctx: PluginContext): Promise<ToolCallResult> => {
     const start = Date.now();
     try {
       const filePath = args.file_path;
@@ -128,7 +128,7 @@ const summarizeMeetingTool: Tool = {
     ],
     capabilities: [],
   },
-  execute: async (args: Record<string, unknown>, _ctx: ToolContext): Promise<ToolCallResult> => {
+  execute: async (args: Record<string, unknown>, _ctx: PluginContext): Promise<ToolCallResult> => {
     const start = Date.now();
     try {
       const transcript = args.transcript;
@@ -182,7 +182,7 @@ const extractActionItemsTool: Tool = {
     ],
     capabilities: [],
   },
-  execute: async (args: Record<string, unknown>, _ctx: ToolContext): Promise<ToolCallResult> => {
+  execute: async (args: Record<string, unknown>, _ctx: PluginContext): Promise<ToolCallResult> => {
     const start = Date.now();
     try {
       const transcript = args.transcript;
@@ -231,7 +231,7 @@ const meetingSearchTool: Tool = {
     ],
     capabilities: [],
   },
-  execute: async (args: Record<string, unknown>, _ctx: ToolContext): Promise<ToolCallResult> => {
+  execute: async (args: Record<string, unknown>, _ctx: PluginContext): Promise<ToolCallResult> => {
     const start = Date.now();
     try {
       const query = args.query;
@@ -271,7 +271,7 @@ const transcribeStatusTool: Tool = {
     params: [],
     capabilities: ['shell:run'],
   },
-  execute: async (_args: Record<string, unknown>, _ctx: ToolContext): Promise<ToolCallResult> => {
+  execute: async (_args: Record<string, unknown>, _ctx: PluginContext): Promise<ToolCallResult> => {
     const start = Date.now();
     try {
       const result = { whisper_installed: false, model: pluginConfig.whisperModel || 'base' };

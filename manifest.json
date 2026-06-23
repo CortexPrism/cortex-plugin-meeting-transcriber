@@ -1,6 +1,6 @@
 {
   "name": "cortex-plugin-meeting-transcriber",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Ingest audio/video files, transcribe via Whisper, generate structured meeting notes",
   "kind": "esm",
   "entryPoint": "mod.ts",
@@ -36,7 +36,7 @@
           "type": "string",
           "description": "Whisper model to use",
           "required": false,
-          "default": "base",
+          "defaultValue": "base",
           "enum": [
             "tiny",
             "base",
@@ -50,7 +50,7 @@
           "type": "string",
           "description": "Output format",
           "required": false,
-          "default": "text",
+          "defaultValue": "text",
           "enum": [
             "text",
             "srt",
@@ -110,7 +110,7 @@
           "type": "number",
           "description": "Maximum number of results",
           "required": false,
-          "default": 10
+          "defaultValue": 10
         }
       ]
     },
@@ -130,8 +130,8 @@
             "label": "Whisper Model",
             "type": "select",
             "description": "Default Whisper model",
-            "default": "base",
-            "enum": [
+            "defaultValue": "base",
+            "options": [
               {
                 "label": "Tiny",
                 "value": "tiny"
@@ -159,7 +159,7 @@
             "label": "Default Language (ISO)",
             "type": "text",
             "description": "Default language code for transcription",
-            "default": "en"
+            "defaultValue": "en"
           }
         ]
       }
@@ -167,7 +167,7 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "cortex": ">=1.0.0"
+    "cortex": ">=0.51.0"
   },
   "aiDisclosure": {
     "tools": [
